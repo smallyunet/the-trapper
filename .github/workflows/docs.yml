@@ -30,7 +30,7 @@ jobs:
           forge remappings
 
       - name: Build documentation
-        run: forge doc
+        run: forge doc --build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
