@@ -24,6 +24,11 @@ jobs:
         with:
           version: nightly
 
+      - name: Build project
+        run: |
+          forge build
+          forge remappings
+
       - name: Build documentation
         run: forge doc
 
