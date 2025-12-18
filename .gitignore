@@ -1,0 +1,20 @@
+# Foundry
+out/
+cache/
+broadcast/
+lib/
+cache_forge/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# IDE / System
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
