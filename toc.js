@@ -8,7 +8,7 @@ class MDBookSidebarScrollbox extends HTMLElement {
         super();
     }
     connectedCallback() {
-        this.innerHTML = '<ol class="chapter"><li class="chapter-item "><a href="index.html">Home</a></li><li class="chapter-item affix "><li class="part-title">src</li><li class="chapter-item "><a href="src/traps/index.html">❱ traps</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="src/traps/AntiMEV.sol/contract.AntiMEV.html">AntiMEV</a></li><li class="chapter-item "><a href="src/traps/ReentrancyBait.sol/contract.ReentrancyBait.html">ReentrancyBait</a></li><li class="chapter-item "><a href="src/traps/StorageGhost.sol/contract.StorageGhost.html">StorageGhost</a></li></ol></li></ol>';
+        this.innerHTML = '<ol class="chapter"><li class="chapter-item "><a href="index.html">Home</a></li><li class="chapter-item affix "><li class="part-title">src</li><li class="chapter-item "><a href="src/traps/index.html">❱ traps</a><a class="toggle"><div>❱</div></a></li><li><ol class="section"><li class="chapter-item "><a href="src/traps/AntiMEV.sol/contract.AntiMEV.html">AntiMEV</a></li><li class="chapter-item "><a href="src/traps/FlashLoanTrap.sol/contract.FlashLoanTrap.html">FlashLoanTrap</a></li><li class="chapter-item "><a href="src/traps/ReentrancyBait.sol/contract.ReentrancyBait.html">ReentrancyBait</a></li><li class="chapter-item "><a href="src/traps/StorageGhost.sol/contract.StorageGhost.html">StorageGhost</a></li></ol></li></ol>';
         // Set the current, active page, and reveal it if it's hidden
         let current_page = document.location.href.toString().split("#")[0].split("?")[0];
         if (current_page.endsWith("/")) {
