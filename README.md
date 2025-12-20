@@ -43,6 +43,15 @@ A hidden reentrancy guard or state corruption trigger.
 - **Mechanism:** Uses a shadow variable that is toggled during the call.
 - **Punishment:** Standard reentrancy attacks will succeed in the re-entrant call (opcode level) but fail the overall transaction due to a hidden post-execution check, wasting the attacker's gas for the complex attack transaction.
 
+### 4. FlashLoanTrap (`src/traps/FlashLoanTrap.sol`)
+**The Bait:**
+A flash loan provider with seemingly exploitable callback structure. Attacker thinks they can borrow funds, use them profitably, and not repay.
+
+**The Trap:**
+Detects flash loan attack patterns via balance snapshots and interaction tracking.
+- **Mechanism:** Tracks same-block repeated interactions, checks if caller/target are contracts, verifies repayment.
+- **Punishment:** If flash loan not repaid by a contract caller, triggers `invalid()` opcode to burn all remaining gas.
+
 ---
 
 ## 🛠 Usage
