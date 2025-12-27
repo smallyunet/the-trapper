@@ -1,0 +1,11 @@
+{
+  "lib/forge-std": {
+    "rev": "27ba11c86ac93d8d4a50437ae26621468fe63c20"
+  },
+  "lib/solady": {
+    "tag": {
+      "name": "v0.1.26",
+      "rev": "acd959aa4bd04720d640bf4e6a5c71037510cc4b"
+    }
+  }
+}

@@ -52,6 +52,16 @@ Detects flash loan attack patterns via balance snapshots and interaction trackin
 - **Mechanism:** Tracks same-block repeated interactions, checks if caller/target are contracts, verifies repayment.
 - **Punishment:** If flash loan not repaid by a contract caller, triggers `invalid()` opcode to burn all remaining gas.
 
+### 5. HoneypotToken (`src/traps/HoneypotToken.sol`)
+**The Bait:**
+A standard ERC20 token that seems tradable. The owner mints tokens and makes it look like a new gem.
+
+**The Trap:**
+Contains a hidden sell restriction mechanism.
+- **Mechanism:** The `_beforeTokenTransfer` hook allows minting and receiving tokens but reverts on any outgoing transfer from a non-owner address.
+- **Outcome:** Victims can buy the token (receiving it from a DEX pair) but cannot sell it back.
+- **Punishment:** Funds used to buy the token are effectively locked as they cannot be swapped back.
+
 ---
 
 ## 🛠 Usage
@@ -60,6 +70,12 @@ This project uses [Foundry](https://getfoundry.sh).
 
 ### Build
 
+### Build
+Using Makefile:
+```shell
+$ make build
+```
+Or directly:
 ```shell
 $ forge build
 ```
@@ -68,6 +84,11 @@ $ forge build
 
 Simulate the exploits (and verify the traps trigger):
 
+Using Makefile:
+```shell
+$ make test
+```
+Or directly:
 ```shell
 $ forge test
 ```
