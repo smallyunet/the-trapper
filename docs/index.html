@@ -22,9 +22,15 @@
 
     <div class="container">
 
+        <canvas id="matrix"></canvas>
+
         <div id="terminal">
             <div id="terminal-content">
-                <!-- Logs appear here -->
+                <div class="log-entry log-system">System initialized. Type 'help' for commands.</div>
+            </div>
+            <div class="cli-line">
+                <span class="prompt">root@trapper:~#</span>
+                <input type="text" id="cli-input" autocomplete="off" spellcheck="false">
             </div>
         </div>
 
