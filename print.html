@@ -233,14 +233,33 @@ Detects flash loan attack patterns via balance snapshots and interaction trackin
 <li><strong>Mechanism:</strong> Tracks same-block repeated interactions, checks if caller/target are contracts, verifies repayment.</li>
 <li><strong>Punishment:</strong> If flash loan not repaid by a contract caller, triggers <code>invalid()</code> opcode to burn all remaining gas.</li>
 </ul>
+<h3 id="5-honeypottoken-srctrapshoneypottokensol"><a class="header" href="#5-honeypottoken-srctrapshoneypottokensol">5. HoneypotToken (<code>src/traps/HoneypotToken.sol</code>)</a></h3>
+<p><strong>The Bait:</strong>
+A standard ERC20 token that seems tradable. The owner mints tokens and makes it look like a new gem.</p>
+<p><strong>The Trap:</strong>
+Contains a hidden sell restriction mechanism.</p>
+<ul>
+<li><strong>Mechanism:</strong> The <code>_beforeTokenTransfer</code> hook allows minting and receiving tokens but reverts on any outgoing transfer from a non-owner address.</li>
+<li><strong>Outcome:</strong> Victims can buy the token (receiving it from a DEX pair) but cannot sell it back.</li>
+<li><strong>Punishment:</strong> Funds used to buy the token are effectively locked as they cannot be swapped back.</li>
+</ul>
 <hr />
 <h2 id="-usage"><a class="header" href="#-usage">🛠 Usage</a></h2>
 <p>This project uses <a href="https://getfoundry.sh">Foundry</a>.</p>
 <h3 id="build"><a class="header" href="#build">Build</a></h3>
+<h3 id="build-1"><a class="header" href="#build-1">Build</a></h3>
+<p>Using Makefile:</p>
+<pre><code class="language-shell">$ make build
+</code></pre>
+<p>Or directly:</p>
 <pre><code class="language-shell">$ forge build
 </code></pre>
 <h3 id="test"><a class="header" href="#test">Test</a></h3>
 <p>Simulate the exploits (and verify the traps trigger):</p>
+<p>Using Makefile:</p>
+<pre><code class="language-shell">$ make test
+</code></pre>
+<p>Or directly:</p>
 <pre><code class="language-shell">$ forge test
 </code></pre>
 <h3 id="deploy-local-anvil"><a class="header" href="#deploy-local-anvil">Deploy (Local Anvil)</a></h3>
@@ -254,11 +273,12 @@ $ forge script script/DeployTraps.s.sol --rpc-url localhost
 <ul>
 <li><a href="src/traps/AntiMEV.sol/contract.AntiMEV.html">AntiMEV</a></li>
 <li><a href="src/traps/FlashLoanTrap.sol/contract.FlashLoanTrap.html">FlashLoanTrap</a></li>
+<li><a href="src/traps/HoneypotToken.sol/contract.HoneypotToken.html">HoneypotToken</a></li>
 <li><a href="src/traps/ReentrancyBait.sol/contract.ReentrancyBait.html">ReentrancyBait</a></li>
 <li><a href="src/traps/StorageGhost.sol/contract.StorageGhost.html">StorageGhost</a></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="antimev"><a class="header" href="#antimev">AntiMEV</a></h1>
-<p><a href="https://github.com/smallyunet/the-trapper/blob/1721b95a7e19d622892877123eae61855ba5da7d/src/traps/AntiMEV.sol">Git Source</a></p>
+<p><a href="https://github.com/smallyunet/the-trapper/blob/40f9043c75ccc8fa2d8ef9b52b095574915dc09b/src/traps/AntiMEV.sol">Git Source</a></p>
 <p><strong>Title:</strong>
 AntiMEV</p>
 <p><strong>Author:</strong>
@@ -300,7 +320,7 @@ Attacker calls this thinking they can drain the contract.</p>
 <pre><code class="language-solidity">event Gotcha(address indexed bot);
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="flashloantrap"><a class="header" href="#flashloantrap">FlashLoanTrap</a></h1>
-<p><a href="https://github.com/smallyunet/the-trapper/blob/1721b95a7e19d622892877123eae61855ba5da7d/src/traps/FlashLoanTrap.sol">Git Source</a></p>
+<p><a href="https://github.com/smallyunet/the-trapper/blob/40f9043c75ccc8fa2d8ef9b52b095574915dc09b/src/traps/FlashLoanTrap.sol">Git Source</a></p>
 <p><strong>Title:</strong>
 FlashLoanTrap</p>
 <p><strong>Author:</strong>
@@ -365,8 +385,41 @@ PUNISHMENT:</li>
 <h3 id="traptriggered"><a class="header" href="#traptriggered">TrapTriggered</a></h3>
 <pre><code class="language-solidity">event TrapTriggered(address indexed attacker, string reason);
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="honeypottoken"><a class="header" href="#honeypottoken">HoneypotToken</a></h1>
+<p><a href="https://github.com/smallyunet/the-trapper/blob/40f9043c75ccc8fa2d8ef9b52b095574915dc09b/src/traps/HoneypotToken.sol">Git Source</a></p>
+<p><strong>Inherits:</strong>
+ERC20, Ownable</p>
+<p><strong>Title:</strong>
+HoneypotToken</p>
+<p>Looks like a standard meme token but traps sellers.</p>
+<p>Uses a hidden whitelist mechanism to prevent non-owners from selling (transferring to pair).</p>
+<h2 id="state-variables-2"><a class="header" href="#state-variables-2">State Variables</a></h2>
+<h3 id="_ispairs"><a class="header" href="#_ispairs">_isPairs</a></h3>
+<pre><code class="language-solidity">mapping(address =&gt; bool) private _isPairs
+</code></pre>
+<h2 id="functions-2"><a class="header" href="#functions-2">Functions</a></h2>
+<h3 id="constructor"><a class="header" href="#constructor">constructor</a></h3>
+<pre><code class="language-solidity">constructor() ;
+</code></pre>
+<h3 id="name"><a class="header" href="#name">name</a></h3>
+<pre><code class="language-solidity">function name() public view virtual override returns (string memory);
+</code></pre>
+<h3 id="symbol"><a class="header" href="#symbol">symbol</a></h3>
+<pre><code class="language-solidity">function symbol() public view virtual override returns (string memory);
+</code></pre>
+<h3 id="_beforetokentransfer"><a class="header" href="#_beforetokentransfer">_beforeTokenTransfer</a></h3>
+<p>Hidden "Anti-Bot" (actually Anti-Sell) Logic</p>
+<pre><code class="language-solidity">function _beforeTokenTransfer(
+    address from,
+    address to,
+    uint256 /* amount */
+)
+    internal
+    virtual
+    override;
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="reentrancybait"><a class="header" href="#reentrancybait">ReentrancyBait</a></h1>
-<p><a href="https://github.com/smallyunet/the-trapper/blob/1721b95a7e19d622892877123eae61855ba5da7d/src/traps/ReentrancyBait.sol">Git Source</a></p>
+<p><a href="https://github.com/smallyunet/the-trapper/blob/40f9043c75ccc8fa2d8ef9b52b095574915dc09b/src/traps/ReentrancyBait.sol">Git Source</a></p>
 <p><strong>Title:</strong>
 ReentrancyBait</p>
 <p><strong>Author:</strong>
@@ -386,15 +439,15 @@ nested ones, or traps the funds by updating a different state on reentry.</li>
 but NOT enough for the complex fallback logic of the attacker.</li>
 <li>OR: We update a shadow balance in the reentrancy that results in 0 payout globally.</li>
 </ul>
-<h2 id="state-variables-2"><a class="header" href="#state-variables-2">State Variables</a></h2>
+<h2 id="state-variables-3"><a class="header" href="#state-variables-3">State Variables</a></h2>
 <h3 id="balances"><a class="header" href="#balances">balances</a></h3>
 <pre><code class="language-solidity">mapping(address =&gt; uint256) public balances
 </code></pre>
 <h3 id="_shadowlock"><a class="header" href="#_shadowlock">_shadowLock</a></h3>
 <pre><code class="language-solidity">bool private _shadowLock
 </code></pre>
-<h2 id="functions-2"><a class="header" href="#functions-2">Functions</a></h2>
-<h3 id="constructor"><a class="header" href="#constructor">constructor</a></h3>
+<h2 id="functions-3"><a class="header" href="#functions-3">Functions</a></h2>
+<h3 id="constructor-1"><a class="header" href="#constructor-1">constructor</a></h3>
 <pre><code class="language-solidity">constructor() payable;
 </code></pre>
 <h3 id="deposit"><a class="header" href="#deposit">deposit</a></h3>
@@ -406,7 +459,7 @@ Attacker sees: call(value) BEFORE balances[msg.sender] = 0.</p>
 <pre><code class="language-solidity">function withdraw() external;
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="storageghost"><a class="header" href="#storageghost">StorageGhost</a></h1>
-<p><a href="https://github.com/smallyunet/the-trapper/blob/1721b95a7e19d622892877123eae61855ba5da7d/src/traps/StorageGhost.sol">Git Source</a></p>
+<p><a href="https://github.com/smallyunet/the-trapper/blob/40f9043c75ccc8fa2d8ef9b52b095574915dc09b/src/traps/StorageGhost.sol">Git Source</a></p>
 <p><strong>Title:</strong>
 StorageGhost</p>
 <p><strong>Author:</strong>
@@ -432,18 +485,18 @@ Let's make it simpler but effective:
 The "Bait" contract uses <code>delegatecall</code> to <code>lib</code>. <code>lib</code> has <code>owner</code> at slot 0.
 The "Ghost" contract has a hidden variable at slot 0 that triggers a LOCK when modified.</li>
 </ul>
-<h2 id="state-variables-3"><a class="header" href="#state-variables-3">State Variables</a></h2>
+<h2 id="state-variables-4"><a class="header" href="#state-variables-4">State Variables</a></h2>
 <h3 id="trapslot"><a class="header" href="#trapslot">trapSlot</a></h3>
 <pre><code class="language-solidity">uint256 private trapSlot
 </code></pre>
 <h3 id="_owner_slot"><a class="header" href="#_owner_slot">_OWNER_SLOT</a></h3>
 <pre><code class="language-solidity">bytes32 internal constant _OWNER_SLOT = keccak256("storage.ghost.owner")
 </code></pre>
-<h2 id="functions-3"><a class="header" href="#functions-3">Functions</a></h2>
+<h2 id="functions-4"><a class="header" href="#functions-4">Functions</a></h2>
 <h3 id="onlyowner"><a class="header" href="#onlyowner">onlyOwner</a></h3>
 <pre><code class="language-solidity">modifier onlyOwner() ;
 </code></pre>
-<h3 id="constructor-1"><a class="header" href="#constructor-1">constructor</a></h3>
+<h3 id="constructor-2"><a class="header" href="#constructor-2">constructor</a></h3>
 <pre><code class="language-solidity">constructor() ;
 </code></pre>
 <h3 id="_getowner"><a class="header" href="#_getowner">_getOwner</a></h3>
