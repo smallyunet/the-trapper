@@ -16,8 +16,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          submodules: recursive
+        # submodules handled by make build
 
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
