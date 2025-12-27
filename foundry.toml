@@ -7,4 +7,8 @@ optimizer = true
 optimizer_runs = 200
 via_ir = true
 
+[doc]
+out = "docs/book"
+title = "The Trapper Docs"
+
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
