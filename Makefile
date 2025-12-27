@@ -6,6 +6,7 @@
 all: build
 
 build:
+	git submodule update --init --recursive
 	forge build
 
 test:
