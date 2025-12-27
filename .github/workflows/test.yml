@@ -21,9 +21,6 @@ jobs:
         with:
           version: nightly
 
-      - name: Debug Submodules
-        run: ls -R lib/
-
       - name: Build
         run: make build
 
