@@ -1,5 +1,5 @@
 # StorageGhost
-[Git Source](https://github.com/smallyunet/the-trapper/blob/31c92e1ccd8c6d51fd6e0efb1df8ddfcdca53e16/src/traps/StorageGhost.sol)
+[Git Source](https://github.com/smallyunet/the-trapper/blob/5e5f105121a51c3abacc0718e01acba3c31e92f9/src/traps/StorageGhost.sol)
 
 **Title:**
 StorageGhost
