@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE TRAPPER // EVM Honeypots</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1 class="glitch" data-text="THE TRAPPER">THE TRAPPER</h1>
+        <div class="subtitle">EVM Honeypot Collection // Defense against the Dark Arts</div>
+        <p style="color: #666; max-width: 600px; margin: 0 auto;">
+            Experimental smart contracts designed to punish malicious actors. 
+            <br>
+            <span style="color: var(--primary-color)">WARNING: DO NOT INTERACT IN PRODUCTION.</span>
+        </p>
+    </header>
+
+    <div class="container">
+        
+        <div id="terminal">
+            <div id="terminal-content">
+                <!-- Logs appear here -->
+            </div>
+        </div>
+
+        <div class="trap-grid">
+            <!-- Trap 1 -->
+            <div class="trap-card">
+                <h3>StorageGhost</h3>
+                <p>Appears to be a vulnerable delegatecall proxy. Allows attackers to "overwrite" owner.</p>
+                <div style="margin: 1rem 0; font-size: 0.8rem; color: #555;">
+                    Vulnerability: <code>delegatecall</code><br>
+                    Trap: Storage Misalignment
+                </div>
+                <button class="action-btn" data-trap="storage-ghost">Simulate Attack</button>
+            </div>
+
+            <!-- Trap 2 -->
+            <div class="trap-card">
+                <h3>AntiMEV</h3>
+                <p>Offers a guaranteed arbitrage opportunity that works in simulation but fails on-chain.</p>
+                <div style="margin: 1rem 0; font-size: 0.8rem; color: #555;">
+                    Vulnerability: Free Mint / Arb<br>
+                    Trap: Gas/Env Detection
+                </div>
+                <button class="action-btn" data-trap="antimev">Simulate Arbitrage</button>
+            </div>
+
+            <!-- Trap 3 -->
+            <div class="trap-card">
+                <h3>ReentrancyBait</h3>
+                <p>Classic checks-effects-interactions violation. Invites reentrancy.</p>
+                <div style="margin: 1rem 0; font-size: 0.8rem; color: #555;">
+                    Vulnerability: Reentrancy<br>
+                    Trap: Hidden Post-Check
+                </div>
+                <button class="action-btn" data-trap="reentrancy">Simulate Reentrancy</button>
+            </div>
+
+            <!-- Trap 4 -->
+            <div class="trap-card">
+                <h3>FlashLoanTrap</h3>
+                <p>Flash loan provider that seems to allow walking away with funds.</p>
+                <div style="margin: 1rem 0; font-size: 0.8rem; color: #555;">
+                    Vulnerability: Logic Error<br>
+                    Trap: Snapshot Tracking
+                </div>
+                <button class="action-btn" data-trap="flashloan">Borrow & Run</button>
+            </div>
+
+            <!-- Trap 5 -->
+            <div class="trap-card">
+                <h3>HoneypotToken</h3>
+                <p>A new meme token "GHOST". Everyone is buying, price is pumping.</p>
+                <div style="margin: 1rem 0; font-size: 0.8rem; color: #555;">
+                    Vulnerability: None (Social Eng)<br>
+                    Trap: Sell Restriction
+                </div>
+                <button class="action-btn" data-trap="honeypot">Buy Token</button>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>
+            <a href="https://github.com/smallyu/the-trapper">View Source on GitHub</a> <br>
+            <br>
+            Made for educational purposes.
+        </p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
