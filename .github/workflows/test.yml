@@ -23,7 +23,7 @@ jobs:
           version: nightly
 
       - name: Build
-        run: forge build
+        run: make build
 
       - name: Run tests
-        run: forge test -vvv
+        run: make test
