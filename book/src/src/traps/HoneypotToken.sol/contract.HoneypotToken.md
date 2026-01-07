@@ -1,5 +1,5 @@
 # HoneypotToken
-[Git Source](https://github.com/smallyunet/the-trapper/blob/0d9944dcdd16d135362e0768c3fa166bb70c92cf/src/traps/HoneypotToken.sol)
+[Git Source](https://github.com/smallyunet/the-trapper/blob/13b8db8b187d1f1af200624016fe5e6186a0ab55/src/traps/HoneypotToken.sol)
 
 **Inherits:**
 ERC20, Ownable

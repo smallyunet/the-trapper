@@ -62,6 +62,18 @@ Contains a hidden sell restriction mechanism.
 - **Outcome:** Victims can buy the token (receiving it from a DEX pair) but cannot sell it back.
 - **Punishment:** Funds used to buy the token are effectively locked as they cannot be swapped back.
 
+### 6. The Labyrinth (`src/traps/TheLabyrinth.sol`)
+**The Bait:**
+A progressive "Capture The Flag" challenge with 3 gates. The contract seemingly offers a bounty to anyone who can pass the checks.
+
+**The Trap:**
+Designed to catch blind copy-pasters and greedy re-entrancy attackers.
+- **Gate 1 (The Mirror):** Filters out EOAs, forcing attackers to use a smart contract.
+- **Gate 2 (The Riddle):** Requires reading private storage slots.
+- **Gate 3 (The Greedy):** A fake reentrancy vulnerability.
+  - **Mechanism:** It sends ETH to the caller *before* updating a lock state, but then enters an **Infinite Gas Loop** if the lock state is found to be true upon return (or if the state was updated in a way that detects re-entrancy). Actually, in our implementation, it checks for re-entrancy and if detected, enters an infinite loop to consume the attacker's gas limit.
+  - **Punishment:** The attacker sees the re-entrancy opportunity, tries to re-enter `solve()`, and gets stuck in an infinite loop, burning all provided gas.
+
 ---
 
 ## 🛠 Usage
