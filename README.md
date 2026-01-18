@@ -74,6 +74,15 @@ Designed to catch blind copy-pasters and greedy re-entrancy attackers.
   - **Mechanism:** It sends ETH to the caller *before* updating a lock state, but then enters an **Infinite Gas Loop** if the lock state is found to be true upon return (or if the state was updated in a way that detects re-entrancy). Actually, in our implementation, it checks for re-entrancy and if detected, enters an infinite loop to consume the attacker's gas limit.
   - **Punishment:** The attacker sees the re-entrancy opportunity, tries to re-enter `solve()`, and gets stuck in an infinite loop, burning all provided gas.
 
+### 7. Hot Potato (`src/traps/HotPotato.sol`)
+**The Bait:**
+A token that seemingly offers a unique "decay" mechanic where holding it loses value, but trading it resets the timer. It encourages rapid trading.
+
+**The Trap:**
+Designed to catch arbitrage bots and DEX traders.
+- **Trap:** Transfers to contracts (like DEX pairs) that are not the owner trigger a "Meltdown".
+- **Punishment:** The transaction reverts with a custom error message ("HotPotato: IT BURNS! HANDS OFF!"), effectively blocking any sale on a DEX, trapping the User/Bot with the decaying asset.
+
 ---
 
 ## 🛠 Usage

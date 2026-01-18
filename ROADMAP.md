@@ -12,7 +12,7 @@ A progressive capture-the-flag contract where users must bypass multiple layers 
     *   **Gate 3 (The Greedy)**: A fake reentrancy vulnerability. If the attacker tries to re-enter, the trap triggers a `SelfDestruct` or infinite loop to consume all gas.
 *   **Goal**: Retrieve the locked ETH bounty without getting trapped.
 
-## 2. 💣 Hot Potato (Cursed Token)
+## 2. 💣 Hot Potato (Cursed Token) [COMPLETED]
 A viral, self-destructing ERC20 token experiment designed to simulate high-pressure trading environments.
 
 *   **Concept**: A digital curse or "Tag" game.
