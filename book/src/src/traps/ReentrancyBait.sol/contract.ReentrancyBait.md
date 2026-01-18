@@ -1,5 +1,5 @@
 # ReentrancyBait
-[Git Source](https://github.com/smallyunet/the-trapper/blob/13b8db8b187d1f1af200624016fe5e6186a0ab55/src/traps/ReentrancyBait.sol)
+[Git Source](https://github.com/smallyunet/the-trapper/blob/b83caee862a973052f95e2b1731f2e7d476f25ad/src/traps/ReentrancyBait.sol)
 
 **Title:**
 ReentrancyBait
