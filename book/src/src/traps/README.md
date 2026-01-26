@@ -6,5 +6,6 @@
 - [HoneypotToken](HoneypotToken.sol/contract.HoneypotToken.md)
 - [HotPotato](HotPotato.sol/contract.HotPotato.md)
 - [ReentrancyBait](ReentrancyBait.sol/contract.ReentrancyBait.md)
+- [SpiderAndFly](SpiderAndFly.sol/contract.SpiderAndFly.md)
 - [StorageGhost](StorageGhost.sol/contract.StorageGhost.md)
 - [TheLabyrinth](TheLabyrinth.sol/contract.TheLabyrinth.md)
