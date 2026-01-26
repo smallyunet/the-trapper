@@ -24,6 +24,8 @@ A viral, self-destructing ERC20 token experiment designed to simulate high-press
 ## 3. 🕸️ Spider & Fly (MEV Honeycomb)
 A dynamic trap specifically designed to detect, capture, and visualize MEV (Maximal Extractable Value) bots in action.
 
+*   **Status**: ✅ Initial version shipped (v0.0.5)
+
 *   **Concept**: An active hunting ground for arbitrage bots.
 *   **Mechanics**:
     *   **Bait**: The contract periodically exposes calculated, profitable arbitrage opportunities.

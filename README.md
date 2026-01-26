@@ -83,6 +83,15 @@ Designed to catch arbitrage bots and DEX traders.
 - **Trap:** Transfers to contracts (like DEX pairs) that are not the owner trigger a "Meltdown".
 - **Punishment:** The transaction reverts with a custom error message ("HotPotato: IT BURNS! HANDS OFF!"), effectively blocking any sale on a DEX, trapping the User/Bot with the decaying asset.
 
+### 8. Spider & Fly (`src/traps/SpiderAndFly.sol`)
+**The Bait:**
+A seemingly profitable `claimProfit()` function that hints at periodic arbitrage or bundle-only opportunities.
+
+**The Trap:**
+Detects MEV-like call patterns (e.g., high gas price / contract caller / `tx.origin` mismatch).
+- **Capture:** Instead of paying profit, it mints a "Caught Fly" ERC721 badge to the caller.
+- **Punishment:** The attacker gets no profit and wastes gas for the attempt.
+
 ---
 
 ## 🛠 Usage
